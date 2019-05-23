@@ -81,8 +81,19 @@ if(gamePlaying)
     //update th UI
     document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
 
+    var input = document.querySelector('.final-score').value;
+    var winningScore;
+    if(input)
+    {
+        winningScore = input;
+    }
+    else
+    {
+        winningScore = 20;
+    }
+
     //check he won or not
-    if(scores[activePlayer] >=20)
+    if(scores[activePlayer] >=winningScore)
     {
     document.querySelector('#name-' + activePlayer ).textContent = "winner :)";
     document.querySelector('.dice').style.display = "none";
