@@ -19,8 +19,9 @@ function init(){
 //when we made the html and css file we had ani image in the middle
 //so to remove that then we strat with the click
 
-document.querySelector('.dice').style.display = 'none';
 
+document.getElementById('dice-1').style.display = 'none';
+document.getElementById('dice-2').style.display = 'none';
 // now to put the values in the score as zero in js
 
 document.querySelector('#score-0').textContent = '0';
@@ -44,29 +45,46 @@ document.querySelector('.btn-roll').addEventListener('click',function(){
     if(gamePlaying)
     {
     //1. to add the random number to current score 
-    var dice , diceChecker;
-    dice = Math.floor(Math.random() * 6 ) + 1;
-    var diceDOM = document.querySelector('.dice');
-    diceDOM.style.display = 'block';
-    diceDOM.src = 'dice-' + dice + '.png';  
+    var dice1,dice2 , diceChecker;
+    dice1 = Math.floor(Math.random() * 6 ) + 1;
+    dice2 = Math.floor(Math.random() * 6 ) + 1;
+
+    document.getElementById('dice-1').style.display = 'block';
+    document.getElementById('dice-2').style.display = 'block';
+    document.getElementById('dice-1').src = 'dice-' + dice1 + '.png';
+    document.getElementById('dice-2').src = 'dice-' + dice2 + '.png';  
+
     
     // the working of the game updating the values 
 
-    if(lastDice === 6 && dice === 6)
+    if(dice1 !== 1 && dice2 !== 1)
     {
-        scores[activePlayer] = 0;
-        document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
-        nextPlayer();
-    }
-    else if(dice !== 1)
-    {
-        roundScore += dice;
+        roundScore += dice1 + dice2;
         document.querySelector('#current-' + activePlayer).textContent = roundScore;
     }
     else
-    {  nextPlayer();  }
+    {
+        nextPlayer();
+    }
 
-    lastDice = dice;
+
+    //this is commented out because it affects the 3rd challenge
+
+    // if(lastDice === 6 && dice === 6)
+    // {
+    //     scores[activePlayer] = 0;
+    //     document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
+    //     nextPlayer();
+    // }
+    // else if(dice !== 1)
+    // {
+    //     roundScore += dice;
+    //     document.querySelector('#current-' + activePlayer).textContent = roundScore;
+    // }
+    // else
+    // {  nextPlayer();  }
+
+    // lastDice = dice;
 
 }
 });
@@ -96,7 +114,10 @@ if(gamePlaying)
     if(scores[activePlayer] >=winningScore)
     {
     document.querySelector('#name-' + activePlayer ).textContent = "winner :)";
-    document.querySelector('.dice').style.display = "none";
+    
+    document.getElementById('dice-1').style.display = 'none';
+    document.getElementById('dice-2').style.display = 'none';
+
     document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
     document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
     gamePlaying = false;
@@ -128,7 +149,9 @@ function nextPlayer (){
     document.querySelector('.player-1-panel').classList.toggle('active');
     
     //when the player changes ther dice should not be present so
-    document.querySelector('.dice').style.display = 'none';
+
+    document.getElementById('dice-1').style.display = 'none';
+    document.getElementById('dice-2').style.display = 'none';
 }
 
 document.querySelector('.btn-new').addEventListener('click', init);
